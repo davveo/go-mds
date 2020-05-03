@@ -1,6 +1,8 @@
 package impl
 
-import "github.com/zbrechave/go-mds/service/entity"
+import (
+	"github.com/zbrechave/go-mds/service/entity"
+)
 
 type MessageService struct {
 }
@@ -12,6 +14,10 @@ func (messageservice *MessageService) saveMessageWaitingConfirm(message entity.M
 	if message.ConsumerQueue() == "" {
 		panic("消息的消费队列不能为空 ")
 	}
+	//message.SetEditTime()
+	//message.SetStatus()
+	//message.SetAreadlyDead()
+	message.SetMessageSendTimes(0)
 	return ""
 }
 
