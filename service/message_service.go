@@ -1,6 +1,9 @@
 package service
 
-import "github.com/zbrechave/go-mds/models"
+import (
+	"github.com/zbrechave/go-mds/dao"
+	"github.com/zbrechave/go-mds/models"
+)
 
 type MessageService interface {
 	Get(id int) *models.Message
@@ -10,7 +13,7 @@ type MessageService interface {
 }
 
 type messageService struct {
-	dao *dao.messageDao
+	dao *dao.MessageDao
 }
 
 func (ms *messageService) Get(id int) *models.Message {
