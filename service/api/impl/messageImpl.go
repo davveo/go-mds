@@ -2,20 +2,23 @@ package impl
 
 import "github.com/zbrechave/go-mds/service/entity"
 
-type message struct {
+type MessageService struct {
 }
 
 /**
  * 预存储消息.
  */
-func (ms *message) saveMessageWaitingConfirm(message entity.Message) string {
+func (messageservice *MessageService) saveMessageWaitingConfirm(message entity.Message) string {
+	if message.ConsumerQueue() == "" {
+		panic("消息的消费队列不能为空 ")
+	}
 	return ""
 }
 
 /**
  * 确认并发送消息.
  */
-func (ms *message) confirmAndSendMessage(messageId string) error {
+func (messageservice *MessageService) confirmAndSendMessage(messageId string) error {
 	return nil
 }
 
@@ -23,7 +26,7 @@ func (ms *message) confirmAndSendMessage(messageId string) error {
  * 存储并发送消息.
  */
 
-func (ms *message) saveAndSendMessage(message entity.Message) error {
+func (messageservice *MessageService) saveAndSendMessage(message entity.Message) error {
 	return nil
 }
 
@@ -31,7 +34,7 @@ func (ms *message) saveAndSendMessage(message entity.Message) error {
  * 直接发送消息.
  */
 
-func (ms *message) directSendMessage(message entity.Message) error {
+func (messageservice *MessageService) directSendMessage(message entity.Message) error {
 	return nil
 }
 
@@ -39,7 +42,7 @@ func (ms *message) directSendMessage(message entity.Message) error {
  * 重发消息.
  */
 
-func (ms *message) reSendMessage(message entity.Message) error {
+func (messageservice *MessageService) reSendMessage(message entity.Message) error {
 	return nil
 }
 
@@ -47,7 +50,7 @@ func (ms *message) reSendMessage(message entity.Message) error {
  * 根据messageId重发某条消息.
  */
 
-func (ms *message) reSendMessageByMessageId(messageId string) error {
+func (messageservice *MessageService) reSendMessageByMessageId(messageId string) error {
 	return nil
 }
 
@@ -55,7 +58,7 @@ func (ms *message) reSendMessageByMessageId(messageId string) error {
  * 将消息标记为死亡消息.
  */
 
-func (ms *message) setMessageToAreadlyDead(messageId string) error {
+func (messageservice *MessageService) setMessageToAreadlyDead(messageId string) error {
 	return nil
 }
 
@@ -63,7 +66,7 @@ func (ms *message) setMessageToAreadlyDead(messageId string) error {
  * 根据消息ID获取消息
  */
 
-func (ms *message) getMessageByMessageId(messageId string) (entity.Message, error) {
+func (messageservice *MessageService) getMessageByMessageId(messageId string) (entity.Message, error) {
 	return entity.Message{}, nil
 }
 
@@ -71,7 +74,7 @@ func (ms *message) getMessageByMessageId(messageId string) (entity.Message, erro
  * 根据消息ID删除消息
  */
 
-func (ms *message) deleteMessageByMessageId(messageId string) error {
+func (messageservice *MessageService) deleteMessageByMessageId(messageId string) error {
 	return nil
 }
 
@@ -79,6 +82,6 @@ func (ms *message) deleteMessageByMessageId(messageId string) error {
  * 重发某个消息队列中的全部已死亡的消息.
  */
 
-func (ms *message) reSendAllDeadMessageByQueueName(queueName string, batchSize int) error {
+func (messageservice *MessageService) reSendAllDeadMessageByQueueName(queueName string, batchSize int) error {
 	return nil
 }
