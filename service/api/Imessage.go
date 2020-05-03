@@ -1,10 +1,12 @@
 package api
 
+import "github.com/zbrechave/go-mds/service/entity"
+
 type Imessage interface {
 	/**
 	 * 预存储消息.
 	 */
-	SaveMessageWaitingConfirm(Message message) string
+	SaveMessageWaitingConfirm(message entity.Message) string
 
 	/**
 	 * 确认并发送消息.
@@ -14,17 +16,17 @@ type Imessage interface {
 	/**
 	 * 存储并发送消息.
 	 */
-	saveAndSendMessage(Message message) error
+	saveAndSendMessage(message entity.Message) error
 
 	/**
 	 * 直接发送消息.
 	 */
-	directSendMessage(Message message) error
+	directSendMessage(message entity.Message) error
 
 	/**
 	 * 重发消息.
 	 */
-	reSendMessage(Message message) error
+	reSendMessage(message entity.Message) error
 
 	/**
 	 * 根据messageId重发某条消息.
@@ -39,7 +41,7 @@ type Imessage interface {
 	/**
 	 * 根据消息ID获取消息
 	 */
-	getMessageByMessageId(messageId string) (Message, error)
+	getMessageByMessageId(messageId string) (entity.Message, error)
 
 	/**
 	 * 根据消息ID删除消息
