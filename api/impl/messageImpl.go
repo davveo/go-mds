@@ -1,7 +1,10 @@
 package impl
 
 import (
+	"time"
+
 	"github.com/zbrechave/go-mds/service/entity"
+	"github.com/zbrechave/go-mds/service/enums"
 )
 
 type MessageService struct {
@@ -14,9 +17,9 @@ func (messageservice *MessageService) saveMessageWaitingConfirm(message entity.M
 	if message.ConsumerQueue() == "" {
 		panic("消息的消费队列不能为空 ")
 	}
-	//message.SetEditTime()
-	//message.SetStatus()
-	//message.SetAreadlyDead()
+	message.SetEditTime(time.Now())
+	message.SetStatus(enums.WAITING_CONFIRM)
+	message.SetAreadlyDead(enums.NO)
 	message.SetMessageSendTimes(0)
 	return ""
 }
