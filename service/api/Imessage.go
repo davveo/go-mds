@@ -1,7 +1,5 @@
 package api
 
-import "github.com/zbrechave/go-mds/service/entity"
-
 type Imessage interface {
 	/**
 	 * 预存储消息.
