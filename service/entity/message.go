@@ -92,6 +92,10 @@ func (m *Message) SetField3(field3 string) {
 	m.field3 = field3
 }
 
+func (m *Message) getBase() *BaseEntity {
+	return m.base
+}
+
 func NewMessage(messageId string, messageBody string, consumerQueue string) *Message {
 	return &Message{
 		messageId:     messageId,
