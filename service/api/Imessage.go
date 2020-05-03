@@ -1,7 +1,6 @@
 package api
 
-type RpTransactionMessage struct {
-}
+import "github.com/zbrechave/go-mds/service/entity"
 
 type Imessage interface {
 	/**
