@@ -17,7 +17,7 @@ func init() {
 		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", "root", "123123", "127.0.0.1", "3306", "test"))
 	public.CheckError(err)
 	engine.ShowSQL(true)
-	engine.Sync2(new(M.Message))
+	_ = engine.Sync2(new(M.Message))
 }
 
 type MessageDao struct{}
@@ -27,13 +27,19 @@ func (md *MessageDao) Insert(message *M.Message) (int64, error) {
 }
 
 func (md *MessageDao) Update(message *M.Message) (int64, error) {
-	return engine.Insert(message)
+	return engine.ID(message.Id).Update(message)
 }
 
 func (md *MessageDao) Delete(message *M.Message) (int64, error) {
-	return engine.Insert(message)
+	return engine.Delete(message)
 }
 
-func (md *MessageDao) Find(message *M.Message) (int64, error) {
-	return engine.Insert(message)
+func (md *MessageDao) Get(message *M.Message) (bool, error) {
+	return engine.Get(message)
+}
+
+func (md *MessageDao) GetByMessageId(message *M.Message) (bool, *M.Message) {
+	newmessage := &M.Message{}
+	has, _ := engine.Where("message_id = ?", message.MessageId).Get(newmessage)
+	return has, newmessage
 }

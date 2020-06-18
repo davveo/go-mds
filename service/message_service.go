@@ -32,7 +32,15 @@ func (messageService *MessageService) SaveMessageWaitingConfirm(message *M.Messa
 	message.SetStatus(MESSAGE_WAITING_CONFIRM)
 	message.SetAreadlyDead(PUBLIC_NO)
 	message.SetMessageSendTimes(0)
-	return messageService.dao.Insert(message)
+
+	// 保证发送的幂等
+	has, newmessage := messageService.dao.GetByMessageId(message)
+	if has {
+		newmessage.AddSendTimes()
+		return messageService.dao.Update(newmessage)
+	} else {
+		return messageService.dao.Insert(message)
+	}
 }
 
 /**
