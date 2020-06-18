@@ -19,3 +19,16 @@ A reliable message service system developed with golang
 6. 删除消息
 7. 消息状态确认子系统(crontab)
 8. 消息恢复子系统
+
+# Api
+1. 消息发送
+    POST http://127.0.0.1:3000/api/v1/message/create
+ 
+    ```json
+    {
+        "messageBody": "{'a': 'this is a test'}",
+        "messageQueue": "test",
+        "messageId": "43296482634873",
+        "extra": ""
+    }
+    ```
