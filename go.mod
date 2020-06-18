@@ -26,6 +26,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/tealeg/xlsx v1.0.5 // indirect
+	github.com/tidwall/gjson v1.6.0
 	github.com/xormplus/builder v0.0.0-20200331055651-240ff40009be // indirect
 	github.com/xormplus/xorm v0.0.0-20200529061552-7d0d26c6f81c
 	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1 // indirect

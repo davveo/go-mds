@@ -5,7 +5,7 @@ import (
 
 	"github.com/zbrechave/go-mds/dao"
 
-	"github.com/zbrechave/go-mds/entity"
+	M "github.com/zbrechave/go-mds/model"
 )
 
 const (
@@ -15,14 +15,14 @@ const (
 	PUBLIC_NO               = "否"
 )
 
-type messageService struct {
+type MessageService struct {
 	dao *dao.MessageDao
 }
 
 /**
  * 预存储消息.
  */
-func (messageService *messageService) saveMessageWaitingConfirm(message *entity.MessageEntity) (int64, error) {
+func (messageService *MessageService) SaveMessageWaitingConfirm(message *M.Message) (int64, error) {
 	if message.GetMessageBody() == "" {
 		return 0, errors.New("保存消息为空")
 	}
@@ -38,7 +38,7 @@ func (messageService *messageService) saveMessageWaitingConfirm(message *entity.
 /**
  * 确认并发送消息.
  */
-func (messageService *messageService) confirmAndSendMessage(messageId string) error {
+func (messageService *MessageService) ConfirmAndSendMessage(messageId string) error {
 	return nil
 }
 
@@ -46,7 +46,7 @@ func (messageService *messageService) confirmAndSendMessage(messageId string) er
  * 存储并发送消息.
  */
 
-func (messageService *messageService) saveAndSendMessage(message entity.MessageEntity) error {
+func (messageService *MessageService) SaveAndSendMessage(message M.Message) error {
 	return nil
 }
 
@@ -54,7 +54,7 @@ func (messageService *messageService) saveAndSendMessage(message entity.MessageE
  * 直接发送消息.
  */
 
-func (messageService *messageService) directSendMessage(message entity.MessageEntity) error {
+func (messageService *MessageService) DirectSendMessage(message M.Message) error {
 	return nil
 }
 
@@ -62,7 +62,7 @@ func (messageService *messageService) directSendMessage(message entity.MessageEn
  * 重发消息.
  */
 
-func (messageService *messageService) reSendMessage(message entity.MessageEntity) error {
+func (messageService *MessageService) ReSendMessage(message M.Message) error {
 	return nil
 }
 
@@ -70,7 +70,7 @@ func (messageService *messageService) reSendMessage(message entity.MessageEntity
  * 根据messageId重发某条消息.
  */
 
-func (messageService *messageService) reSendMessageByMessageId(messageId string) error {
+func (messageService *MessageService) ReSendMessageByMessageId(messageId string) error {
 	return nil
 }
 
@@ -78,7 +78,7 @@ func (messageService *messageService) reSendMessageByMessageId(messageId string)
  * 将消息标记为死亡消息.
  */
 
-func (messageService *messageService) setMessageToAreadlyDead(messageId string) error {
+func (messageService *MessageService) SetMessageToAreadlyDead(messageId string) error {
 	return nil
 }
 
@@ -86,15 +86,15 @@ func (messageService *messageService) setMessageToAreadlyDead(messageId string) 
  * 根据消息ID获取消息
  */
 
-func (messageService *messageService) getMessageByMessageId(messageId string) (entity.MessageEntity, error) {
-	return entity.Message{}, nil
+func (messageService *MessageService) GetMessageByMessageId(messageId string) (M.Message, error) {
+	return M.Message{}, nil
 }
 
 /**
  * 根据消息ID删除消息
  */
 
-func (messageService *messageService) deleteMessageByMessageId(messageId string) error {
+func (messageService *MessageService) DeleteMessageByMessageId(messageId string) error {
 	return nil
 }
 
@@ -102,6 +102,6 @@ func (messageService *messageService) deleteMessageByMessageId(messageId string)
  * 重发某个消息队列中的全部已死亡的消息.
  */
 
-func (messageService *messageService) reSendAllDeadMessageByQueueName(queueName string, batchSize int) error {
+func (messageService *MessageService) ReSendAllDeadMessageByQueueName(queueName string, batchSize int) error {
 	return nil
 }

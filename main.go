@@ -3,9 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/zbrechave/go-mds/schedule"
-
 	"github.com/zbrechave/go-mds/router"
+	"github.com/zbrechave/go-mds/schedule"
 )
 
 func main() {

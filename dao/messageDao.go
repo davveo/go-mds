@@ -1,9 +1,11 @@
 package dao
 
 import (
+	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/xormplus/xorm"
-	"github.com/zbrechave/go-mds/entity"
+	M "github.com/zbrechave/go-mds/model"
 	"github.com/zbrechave/go-mds/utils/public"
 )
 
@@ -11,28 +13,27 @@ var engine *xorm.Engine
 
 func init() {
 	var err error
-	engine, err = xorm.NewEngine(
-		"mysql",
-		"root:123123@locolhost:3306/test?charset=utf8")
+	engine, err = xorm.NewEngine("mysql",
+		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", "root", "123123", "127.0.0.1", "3306", "test"))
 	public.CheckError(err)
-
 	engine.ShowSQL(true)
+	engine.Sync2(new(M.Message))
 }
 
 type MessageDao struct{}
 
-func (md *MessageDao) Insert(message *entity.MessageEntity) (int64, error) {
+func (md *MessageDao) Insert(message *M.Message) (int64, error) {
 	return engine.Insert(message)
 }
 
-func (md *MessageDao) Update(message *entity.MessageEntity) (int64, error) {
+func (md *MessageDao) Update(message *M.Message) (int64, error) {
 	return engine.Insert(message)
 }
 
-func (md *MessageDao) Delete(message *entity.MessageEntity) (int64, error) {
+func (md *MessageDao) Delete(message *M.Message) (int64, error) {
 	return engine.Insert(message)
 }
 
-func (md *MessageDao) Find(message *entity.MessageEntity) (int64, error) {
+func (md *MessageDao) Find(message *M.Message) (int64, error) {
 	return engine.Insert(message)
 }
