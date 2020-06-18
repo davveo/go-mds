@@ -1,9 +1,15 @@
 package main
 
-import "github.com/micro/go-micro/server"
+import (
+	"log"
+
+	"github.com/zbrechave/go-mds/server"
+)
 
 func main() {
 	// 装载路由
 	r := server.NewRouter()
-	r.Run(":3000")
+	if err := r.Run(":3000"); err != nil {
+		log.Fatal(err)
+	}
 }
