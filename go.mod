@@ -23,10 +23,11 @@ require (
 	github.com/klauspost/compress v1.10.5 // indirect
 	github.com/micro/go-micro v1.18.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
+	github.com/sirupsen/logrus v1.4.2
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/tealeg/xlsx v1.0.5 // indirect
 	github.com/xormplus/builder v0.0.0-20200331055651-240ff40009be // indirect
-	github.com/xormplus/xorm v0.0.0-20200529061552-7d0d26c6f81c // indirect
+	github.com/xormplus/xorm v0.0.0-20200529061552-7d0d26c6f81c
 	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1 // indirect
 	gopkg.in/flosch/pongo2.v3 v3.0.0-20141028000813-5e81b817a0c4 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect

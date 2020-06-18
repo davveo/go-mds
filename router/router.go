@@ -1,4 +1,4 @@
-package server
+package router
 
 import (
 	"github.com/zbrechave/go-mds/api"
@@ -16,6 +16,7 @@ func NewRouter() *gin.Engine {
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("ping", api.Ping)
+		v1.POST("message/create", api.Create)
 	}
 
 	return r
