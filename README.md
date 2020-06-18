@@ -23,7 +23,7 @@ A reliable message service system developed with golang
 # Api
 1. 消息发送
     POST http://127.0.0.1:3000/api/v1/message/create
- 
+    
     ```json
     {
         "messageBody": "{'a': 'this is a test'}",
@@ -32,3 +32,4 @@ A reliable message service system developed with golang
         "extra": ""
     }
     ```
+   > 说明: messageBody为json数据, messageId指定消息发送的唯一Id
