@@ -10,7 +10,7 @@ import (
 	"github.com/zbrechave/go-mds/service"
 )
 
-func Create(ctx *gin.Context) {
+func CreateMessage(ctx *gin.Context) {
 	var messageRequest request.MessageRequest
 	var messageService service.MessageService
 
@@ -25,7 +25,7 @@ func Create(ctx *gin.Context) {
 		messageRequest.MessageQueue)
 
 	if _, err := messageService.SaveMessageWaitingConfirm(message); err != nil {
-		logrus.Fatal(err)
+		logrus.Println(err)
 	}
 
 	data := make(map[string]interface{})
@@ -36,5 +36,24 @@ func Create(ctx *gin.Context) {
 		"code": 1001,
 		"msg":  "success",
 		"data": data,
+	})
+}
+
+func ConfirmMessage(ctx *gin.Context) {
+	var confirmMessageRequest request.ConfirmMessageRequest
+	var messageService service.MessageService
+
+	if err := ctx.ShouldBindJSON(&confirmMessageRequest); err != nil {
+		logrus.Println(err)
+	}
+
+	if err := messageService.ConfirmAndSendMessage(confirmMessageRequest.MessageId); err != nil {
+		logrus.Println(err)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1001,
+		"msg":  "success",
+		"data": nil,
 	})
 }

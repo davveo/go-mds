@@ -38,8 +38,8 @@ func (md *MessageDao) Get(message *M.Message) (bool, error) {
 	return engine.Get(message)
 }
 
-func (md *MessageDao) GetByMessageId(message *M.Message) (bool, *M.Message) {
-	newmessage := &M.Message{}
-	has, _ := engine.Where("message_id = ?", message.MessageId).Get(newmessage)
-	return has, newmessage
+func (md *MessageDao) GetByMessageByMessageId(messageId string) (bool, *M.Message) {
+	message := &M.Message{}
+	has, _ := engine.Where("message_id = ?", messageId).Get(message)
+	return has, message
 }

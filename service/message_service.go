@@ -17,6 +17,7 @@ const (
 
 type MessageService struct {
 	dao *dao.MessageDao
+	rbq RabbitMQ
 }
 
 /**
@@ -34,8 +35,8 @@ func (messageService *MessageService) SaveMessageWaitingConfirm(message *M.Messa
 	message.SetMessageSendTimes(0)
 
 	// 保证发送的幂等
-	has, newmessage := messageService.dao.GetByMessageId(message)
-	if has {
+	has, newmessage := messageService.dao.GetByMessageByMessageId(message.MessageId)
+	if has && newmessage != nil {
 		newmessage.AddSendTimes()
 		return messageService.dao.Update(newmessage)
 	} else {
@@ -47,15 +48,51 @@ func (messageService *MessageService) SaveMessageWaitingConfirm(message *M.Messa
  * 确认并发送消息.
  */
 func (messageService *MessageService) ConfirmAndSendMessage(messageId string) error {
-	return nil
+	has, message := messageService.dao.GetByMessageByMessageId(messageId)
+	if !has || message == nil {
+		return errors.New("根据消息id查找的消息为空")
+	}
+
+	// 防止重复发送
+	if message.GetStatus() == MESSAGE_SENDING {
+		return nil
+	}
+
+	message.SetStatus(MESSAGE_SENDING)
+	if _, err := messageService.dao.Update(message); err != nil {
+		return errors.New("更新消息失败")
+	}
+
+	return messageService.rbq.Send(message.GetConsumerQueue(), message.GetMessageBody())
 }
 
 /**
  * 存储并发送消息.
  */
 
-func (messageService *MessageService) SaveAndSendMessage(message M.Message) error {
-	return nil
+func (messageService *MessageService) SaveAndSendMessage(message M.Message) (int, error) {
+	//if message == nil {
+	//	return errors.New("保存的消息为空")
+	//}
+	//
+	//if message.GetConsumerQueue() == "" {
+	//	return errors.New("消息队列不能为空")
+	//}
+	//message.setStatus(MessageStatusEnum.SENDING.name());
+	//message.setAreadlyDead(PublicEnum.NO.name());
+	//message.setMessageSendTimes(0);
+	//message.setEditTime(new Date());
+	//int result = rpTransactionMessageDao.insert(message);
+	//
+	//notifyJmsTemplate.setDefaultDestinationName(message.getConsumerQueue());
+	//notifyJmsTemplate.send(new MessageCreator() {
+	//	public Message createMessage(Session session) throws JMSException {
+	//		return session.createTextMessage(message.getMessageBody());
+	//	}
+	//});
+	//
+	//return result, nil
+	return 0, nil
 }
 
 /**
