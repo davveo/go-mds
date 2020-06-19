@@ -38,8 +38,12 @@ func (md *MessageDao) Get(message *M.Message) (bool, error) {
 	return engine.Get(message)
 }
 
-func (md *MessageDao) GetByMessageByMessageId(messageId string) (bool, *M.Message) {
+func (md *MessageDao) GetMessageByMessageId(messageId string) (bool, *M.Message) {
 	message := &M.Message{}
 	has, _ := engine.Where("message_id = ?", messageId).Get(message)
 	return has, message
+}
+
+func (md *MessageDao) DeleteMessageByMessageId(messageId string) (int64, error) {
+	return engine.Where("message_id = ?", messageId).Delete(&M.Message{})
 }

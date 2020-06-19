@@ -18,7 +18,7 @@ type Message struct {
 	AreadlyDead      string `xorm:"varchar(20) notnull default('')"`        // 是否死亡
 	Version          int    `xorm:"version"`                                //版本
 	CreatedTime      int    `xorm:"created"`                                //创建时间
-	DeletedTime      int    `xorm:"created"`                                //删除时间
+	DeletedTime      int    `xorm:"deleted"`                                //删除时间
 	UpdatedTime      int    `xorm:"updated"`                                //修改后自动更新时间
 }
 
