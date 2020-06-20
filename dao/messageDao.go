@@ -1,23 +1,16 @@
 package dao
 
 import (
-	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/xormplus/xorm"
+	"github.com/zbrechave/go-mds/initialize/db"
 	M "github.com/zbrechave/go-mds/model"
-	"github.com/zbrechave/go-mds/utils/public"
 )
 
 var engine *xorm.Engine
 
 func init() {
-	var err error
-	engine, err = xorm.NewEngine("mysql",
-		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", "root", "123123", "127.0.0.1", "3306", "test"))
-	public.CheckError(err)
-	engine.ShowSQL(true)
-	_ = engine.Sync2(new(M.Message))
+	engine = db.Engine
 }
 
 type MessageDao struct{}
