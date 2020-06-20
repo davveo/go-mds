@@ -127,7 +127,7 @@ func (messageService *MessageService) ReSendMessage(message *M.Message) error {
 }
 
 /**
- * 根据messageId重发某条消息.
+ * 根据messageId重发某条消息. web
  */
 
 func (messageService *MessageService) ReSendMessageByMessageId(messageId string) error {
@@ -187,22 +187,22 @@ func (messageService *MessageService) DeleteMessageByMessageId(messageId string)
 
 func (messageService *MessageService) ReSendAllDeadMessageByQueueName(queueName string, batchSize int) error {
 	logrus.Info("==>reSendAllDeadMessageByQueueName")
-	pageNum, numPerPage := 1, 1000
-	if batchSize > 0 && batchSize < 100 {
-		numPerPage = 100
-	} else if batchSize > 100 && batchSize < 5000 {
-		numPerPage = batchSize
-	} else if batchSize > 5000 {
-		numPerPage = 5000
-	} else {
-		numPerPage = 1000
-	}
-
-	paramMap := make(map[string]interface{})
-
-	paramMap["consumerQueue"] = queueName
-	paramMap["areadlyDead"] = enums.YES
-	paramMap["listPageSortType"] = "asc"
+	//pageNum, numPerPage := 1, 1000
+	//if batchSize > 0 && batchSize < 100 {
+	//	numPerPage = 100
+	//} else if batchSize > 100 && batchSize < 5000 {
+	//	numPerPage = batchSize
+	//} else if batchSize > 5000 {
+	//	numPerPage = 5000
+	//} else {
+	//	numPerPage = 1000
+	//}
+	//
+	//paramMap := make(map[string]interface{})
+	//
+	//paramMap["consumerQueue"] = queueName
+	//paramMap["areadlyDead"] = enums.YES
+	//paramMap["listPageSortType"] = "asc"
 
 	//recordList = []{}
 	//
@@ -254,4 +254,8 @@ func (messageService *MessageService) ReSendAllDeadMessageByQueueName(queueName 
 	//	});
 	//}
 	return nil
+}
+
+func (MessageService *MessageService) listPage() {
+
 }

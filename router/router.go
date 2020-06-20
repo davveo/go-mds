@@ -16,8 +16,9 @@ func NewRouter() *gin.Engine {
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("ping", api.Ping)
-		v1.POST("message/create", api.CreateMessage)
-		v1.POST("message/confirm", api.ConfirmMessage)
+		v1.POST("message/list", api.ConfirmMessage)    // ListMessage
+		v1.POST("message/send", api.ConfirmMessage)    // ReSendMessageByMessageId
+		v1.POST("message/sendAll", api.ConfirmMessage) // ReSendAllDeadMessageByQueueName
 	}
 
 	return r
