@@ -9,16 +9,13 @@ import (
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
-
-	// 中间件
 	r.Use(middleware.Cors())
-	// 路由
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("ping", api.Ping)
-		v1.POST("message/list", api.ConfirmMessage)    // ListMessage
-		v1.POST("message/send", api.ConfirmMessage)    // ReSendMessageByMessageId
-		v1.POST("message/sendAll", api.ConfirmMessage) // ReSendAllDeadMessageByQueueName
+		v1.GET("message/list", api.ListMessage)
+		v1.POST("message/create", api.CreateMessage)
+		v1.POST("message/confirm", api.ConfirmMessage)
 	}
 
 	return r

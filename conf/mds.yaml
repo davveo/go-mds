@@ -12,7 +12,7 @@ mysql:
   password: 123123
   maxidleconn: 10
   maxopenconn: 200
-  showsql: true
+  showsql: false
 redis:
   host: 127.0.0.1
   port: 6379

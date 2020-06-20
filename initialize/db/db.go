@@ -29,7 +29,7 @@ func Init() error {
 		logrus.Info("数据库初始化成功")
 	}
 
-	timer := time.NewTicker(time.Second * 30)
+	timer := time.NewTicker(time.Minute * 15)
 	go func(engine *xorm.Engine) {
 		for range timer.C {
 			err = engine.Ping()
