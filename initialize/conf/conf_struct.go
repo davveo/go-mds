@@ -6,6 +6,7 @@ type C struct {
 	Mysql  Mysql
 	Redis  Redis
 	Server Server
+	Mq     Mq
 }
 
 type Mysql struct {
@@ -32,4 +33,11 @@ type Server struct {
 	ReadTimeOut    time.Duration
 	WriteTimeOut   time.Duration
 	MaxHeaderBytes int
+}
+
+type Mq struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
 }
