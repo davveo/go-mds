@@ -1,9 +1,6 @@
 mode: debug
 server:
   port: 8080
-  readtimeout: 60
-  writetimeout: 60
-  maxheaderbytes: 1024
 mysql:
   host: 127.0.0.1
   port: 3306

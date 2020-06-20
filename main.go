@@ -1,36 +1,25 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"github.com/sirupsen/logrus"
 	"github.com/zbrechave/go-mds/initialize"
-	//C "github.com/zbrechave/go-mds/initialize/conf"
+	C "github.com/zbrechave/go-mds/initialize/conf"
 	"github.com/zbrechave/go-mds/router"
 	"github.com/zbrechave/go-mds/schedule"
 )
 
 func init() {
-
-}
-
-func main() {
-	gin.SetMode(gin.ReleaseMode)
-
-	// 装载路由
-	routers := router.NewRouter()
-
 	// 配置初始化
 	initialize.Init()
 
 	// 异步任务初始化
 	schedule.Init()
+}
 
-	//endless.DefaultReadTimeOut = C.GetSettings().Server.ReadTimeOut
-	//endless.DefaultWriteTimeOut = C.GetSettings().Server.WriteTimeOut
-	//endless.DefaultMaxHeaderBytes = C.GetSettings().Server.MaxHeaderBytes
-	//endPoint := fmt.Sprintf(":%d", C.GetSettings().Server.Port)
-	//server := endless.NewServer(endPoint, routers)
-	//if err := server.ListenAndServe(); err != nil {
-	//	log.Printf("Server err: %v", err)
-	//}
-	routers.Run(":8080")
+func main() {
+	routers := router.NewRouter()
+	if err := routers.Run(fmt.Sprintf(":%d", C.GetSettings().Server.Port)); err != nil {
+		logrus.Errorf("Server err: %v", err.Error())
+	}
 }

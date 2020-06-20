@@ -29,10 +29,7 @@ type Redis struct {
 }
 
 type Server struct {
-	Port           int
-	ReadTimeOut    time.Duration
-	WriteTimeOut   time.Duration
-	MaxHeaderBytes int
+	Port int
 }
 
 type Mq struct {
