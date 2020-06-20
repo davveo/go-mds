@@ -9,11 +9,14 @@ type C struct {
 }
 
 type Mysql struct {
-	DbName   string
-	Host     string
-	port     string
-	User     string
-	Password string
+	DbName      string
+	Host        string
+	Port        string
+	User        string
+	Password    string
+	MaxIdleConn int
+	MaxOpenConn int
+	ShowSQL     bool
 }
 
 type Redis struct {

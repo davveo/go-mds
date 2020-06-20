@@ -3,6 +3,7 @@ package redis
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"time"
 
 	"github.com/gomodule/redigo/redis"
@@ -16,9 +17,9 @@ type R struct {
 
 func Init() error {
 	Conn = &redis.Pool{
-		MaxIdle:     10,
-		MaxActive:   20,
-		IdleTimeout: 30,
+		MaxIdle:     C.GetSettings().Redis.MaxIdle,
+		MaxActive:   C.GetSettings().Redis.MaxActive,
+		IdleTimeout: C.GetSettings().Redis.IdleTimeout,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", fmt.Sprintf(
 				"%s:%d", C.GetSettings().Redis.Host,
@@ -33,6 +34,8 @@ func Init() error {
 			return err
 		},
 	}
+	logrus.Info("Redis初始化成功")
+
 	return nil
 }
 

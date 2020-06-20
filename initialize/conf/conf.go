@@ -21,8 +21,10 @@ func Init() error {
 	if err := v.Unmarshal(&settings); err != nil {
 		logrus.Fatal(err)
 		return err
+	} else {
+		v.WatchConfig()
+		logrus.Info("配置初始化成功")
 	}
-	v.WatchConfig()
 	return nil
 }
 

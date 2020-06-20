@@ -17,7 +17,7 @@ func init() {
 }
 
 func main() {
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	// 装载路由
 	routers := router.NewRouter()

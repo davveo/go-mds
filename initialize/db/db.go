@@ -12,7 +12,7 @@ var (
 	engine *xorm.Engine
 )
 
-type D struct {
+type Db struct {
 }
 
 func Init() error {
@@ -25,24 +25,14 @@ func Init() error {
 	if err != nil {
 		return err
 	} else {
-		engine.SetMaxIdleConns(10)
-		engine.SetMaxOpenConns(200)
-		engine.ShowSQL(true)
+		engine.SetMaxIdleConns(C.GetSettings().Mysql.MaxIdleConn)
+		engine.SetMaxOpenConns(C.GetSettings().Mysql.MaxOpenConn)
+		engine.ShowSQL(C.GetSettings().Mysql.ShowSQL)
+		logrus.Info("数据库初始化成功")
 	}
 	return nil
 }
 
-func CheckHealth() {
-	if engine != nil {
-		err := engine.Ping()
-		if err != nil {
-			logrus.Error("数据库不健康")
-		} else {
-			logrus.Info("数据库正常")
-		}
-	}
-}
-
-func (d *D) GetEngine() *xorm.Engine {
+func (d *Db) GetEngine() *xorm.Engine {
 	return engine
 }
