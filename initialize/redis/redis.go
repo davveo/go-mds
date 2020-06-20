@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	C "github.com/zbrechave/go-mds/initialize/conf"
-
 	"github.com/gomodule/redigo/redis"
+	C "github.com/zbrechave/go-mds/initialize/conf"
 )
 
 var Conn *redis.Pool
