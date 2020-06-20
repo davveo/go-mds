@@ -4,12 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gin-gonic/gin"
-
-	"github.com/zbrechave/go-mds/initialize"
-
 	"github.com/fvbock/endless"
-
+	"github.com/gin-gonic/gin"
+	"github.com/zbrechave/go-mds/initialize"
 	C "github.com/zbrechave/go-mds/initialize/conf"
 	"github.com/zbrechave/go-mds/router"
 	"github.com/zbrechave/go-mds/schedule"
