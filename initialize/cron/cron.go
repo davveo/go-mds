@@ -2,8 +2,6 @@ package cron
 
 import (
 	"github.com/robfig/cron/v3"
-	"github.com/sirupsen/logrus"
-	"github.com/zbrechave/go-mds/initialize/db"
 )
 
 func newWithSeconds() *cron.Cron {
@@ -12,14 +10,18 @@ func newWithSeconds() *cron.Cron {
 	return cron.New(cron.WithParser(secondParser), cron.WithChain())
 }
 
+func CheckMysqlHealth() {
+
+}
+
 func Init() error {
 	c := newWithSeconds()
-	_, err := c.AddFunc("*/5 * * * * ?", db.CheckHealth)
+	_, err := c.AddFunc("*/5 * * * * ?", CheckMysqlHealth)
 	if err != nil {
-		logrus.Error("数据健康检测定时任务失败")
 		return err
+	} else {
+		c.Start()
 	}
-	c.Start()
 
 	return nil
 }

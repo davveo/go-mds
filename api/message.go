@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -85,5 +86,16 @@ func DeleteMessage(ctx *gin.Context) {
 }
 
 func ListMessage(ctx *gin.Context) {
+	var messageService service.MessageService
+	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "0"))
+	size, _ := strconv.Atoi(ctx.DefaultQuery("size", "10"))
 
+	messages, err := messageService.ListPage(size, page)
+	if err != nil {
+		logrus.Error("获取分页数据失败")
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"data":  messages,
+		"total": 50,
+	})
 }

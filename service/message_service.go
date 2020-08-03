@@ -256,6 +256,6 @@ func (messageService *MessageService) ReSendAllDeadMessageByQueueName(queueName 
 	return nil
 }
 
-func (MessageService *MessageService) listPage() {
-
+func (messageService *MessageService) ListPage(size, page int) ([]M.Message, error) {
+	return messageService.dao.GetMessageList(size, page)
 }

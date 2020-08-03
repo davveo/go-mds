@@ -1,8 +1,6 @@
 package schedule
 
 import (
-	"log"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -13,8 +11,6 @@ import (
 */
 
 func Init() {
-	log.Println("定时任务开始执行>>>")
-
 	// 处理状态为“待确认”但已超时的消息
 	go handleWaitingConfirmTimeOutMessages()
 

@@ -1,22 +1,26 @@
 mode: debug
 server:
   port: 8080
-  readtimeout: 60
-  writetimeout: 60
-  maxheaderbytes: 1024
 mysql:
   host: 127.0.0.1
   port: 3306
   user: root
   dbname: test
-  maxactive: 30
   password: 123123
-  idletimeout: 200
+  maxidleconn: 10
+  maxopenconn: 200
+  showsql: false
 redis:
   host: 127.0.0.1
   port: 6379
-  MaxIdle: 30
-
+  maxidle: 30
+  maxactive: 30
+  idletimeout: 200
+mq:
+  host: 127.0.0.1
+  port: 1111
+  user: user
+  password: 123123
 log:
   path: logs/
 

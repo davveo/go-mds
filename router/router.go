@@ -9,10 +9,7 @@ import (
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
-
-	// 中间件
 	r.Use(middleware.Cors())
-	// 路由
 	v1 := r.Group("/api/v1")
 	{
 		v1.POST("message/create", api.CreateMessage)

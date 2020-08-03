@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"github.com/xormplus/xorm"
@@ -9,15 +10,12 @@ import (
 )
 
 var (
-	engine *xorm.Engine
+	Engine *xorm.Engine
 )
-
-type D struct {
-}
 
 func Init() error {
 	var err error
-	engine, err = xorm.NewEngine("mysql", fmt.Sprintf(
+	Engine, err = xorm.NewEngine("mysql", fmt.Sprintf(
 		"%s:%s@/%s?charset=utf8",
 		C.GetSettings().Mysql.User,
 		C.GetSettings().Mysql.Password,
@@ -25,24 +23,22 @@ func Init() error {
 	if err != nil {
 		return err
 	} else {
-		engine.SetMaxIdleConns(10)
-		engine.SetMaxOpenConns(200)
-		engine.ShowSQL(true)
+		Engine.SetMaxIdleConns(C.GetSettings().Mysql.MaxIdleConn)
+		Engine.SetMaxOpenConns(C.GetSettings().Mysql.MaxOpenConn)
+		Engine.ShowSQL(C.GetSettings().Mysql.ShowSQL)
+		logrus.Info("数据库初始化成功")
 	}
-	return nil
-}
 
-func CheckHealth() {
-	if engine != nil {
-		err := engine.Ping()
-		if err != nil {
-			logrus.Error("数据库不健康")
-		} else {
-			logrus.Info("数据库正常")
+	timer := time.NewTicker(time.Minute * 15)
+	go func(engine *xorm.Engine) {
+		for range timer.C {
+			err = engine.Ping()
+			if err != nil {
+				logrus.Errorf("db connect error: %#v\n", err.Error())
+			} else {
+				logrus.Info("数据健康检测正常")
+			}
 		}
-	}
-}
-
-func (d *D) GetEngine() *xorm.Engine {
-	return engine
+	}(Engine)
+	return nil
 }
