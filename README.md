@@ -5,8 +5,8 @@ A reliable message service system developed with golang
 # 消息发送流程
 1. 主动方发送预消息(消息状态为"待确认")
 2. 主动方根据(1)返回的结果执行响应的业务操作
-3. 发送业务处理结果
-4. 消息中间件根据业务结果, 更新("待发送")/删除对应的消息
+3. 发送业务处理结果，业务操作与消息确认保证在一个原子操作里面。
+4. 消息中间件根据业务结果, 更新("待发送"--> "发送中")/删除对应的消息
 5. 消息中间件监听并接收待发送状态的消息
 
 
@@ -41,3 +41,6 @@ A reliable message service system developed with golang
        "messageId": "324324234"
     }
    ```
+   
+# ToDo
+   1. 确认超时的消息需要被删除
