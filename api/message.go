@@ -40,7 +40,7 @@ func CreateMessage(ctx *gin.Context) {
 }
 
 func ConfirmMessage(ctx *gin.Context) {
-	var confirmMessageRequest request.ConfirmMessageRequest
+	var confirmMessageRequest request.MessageIDRequest
 	var messageService service.MessageService
 
 	if err := ctx.ShouldBindJSON(&confirmMessageRequest); err != nil {
@@ -56,4 +56,34 @@ func ConfirmMessage(ctx *gin.Context) {
 		"msg":  "success",
 		"data": nil,
 	})
+}
+
+func SendMessage(ctx *gin.Context) {
+	// 发送单条消息
+}
+
+func SendAllMessage(ctx *gin.Context) {
+	// 发送所有消息
+}
+
+func DeleteMessage(ctx *gin.Context) {
+	// 删除消息
+	var (
+		messageR       request.MessageIDRequest
+		messageService service.MessageService
+	)
+
+	if _, err := messageService.DeleteMessageByMessageId(messageR.MessageId); err != nil {
+		logrus.Println("删除消息失败")
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1001,
+		"msg":  "success",
+		"data": nil,
+	})
+}
+
+func ListMessage(ctx *gin.Context) {
+
 }

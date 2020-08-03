@@ -21,7 +21,7 @@ A reliable message service system developed with golang
 8. 消息恢复子系统
 
 # Api
-1. 消息发送
+1. 消息预发送
     POST http://127.0.0.1:3000/api/v1/message/create
     
     ```json
@@ -33,3 +33,11 @@ A reliable message service system developed with golang
     }
     ```
    > 说明: messageBody为json数据, messageId指定消息发送的唯一Id
+                                                                                                                                                                                                                                                  >
+2. 消息发送确认      
+   POST  http://127.0.0.1:3000/api/v1/message/confirm
+   ```json
+    {
+       "messageId": "324324234"
+    }
+   ```

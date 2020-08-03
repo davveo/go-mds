@@ -7,6 +7,6 @@ type MessageRequest struct {
 	Extra        string `json:"extra"`
 }
 
-type ConfirmMessageRequest struct {
+type MessageIDRequest struct {
 	MessageId string `json:"messageId" binding:"required"`
 }
